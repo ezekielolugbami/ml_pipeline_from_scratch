@@ -1,6 +1,6 @@
 # ====== Paths =========================
 
-path_to_dataset = 'titanic.csv'
+path_to_dataset = '../titanic.csv'
 output_scaler_path = 'scaler.pkl'
 output_model_path = 'logistic_regression.pkl'
 
