@@ -1,7 +1,7 @@
 import pandas as pd 
 import numpy as np 
 
-from preprocessing import pipeline
+from preprocessors import pipeline
 import config
 
 pipeline = Pipeline(target = config.target,
