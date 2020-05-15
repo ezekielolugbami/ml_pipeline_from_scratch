@@ -55,11 +55,83 @@ class Pipeline:
 
 
 
-        
+        def find_categorical_mappings(self):
+            for variable in self.categorical_encode:
+                ordered_labels = self.X_train.groupby(variable)[self.target].sum().sort_values().index 
+                ordinal_labels = {k: i for i, k in enumerate(ordered_labels, 0)}
+                self.encoding_dict[variable] = ordinal_labels
+            return self 
 
 
+        # functions to transform data
+        def remove_rare_labels(self, df):
+            df = df.copy()
+            for variable in self.categorical_encode:
+                df[variable] = np.where(df[variable].isin(self.frequent_category_dict[variable]), df[variable], 'Rare')
+            return df
+
+        def encode_categorical_variables(self, df): 
+            df = df.copy()
+            for variable in self.categorical_encode:
+                df[variable] = df[variable].map(self.encoding_dict[variable])
+            return df
 
 
+        # master function 
+        def fit(self, data):
+            self.X_train, self.X_test, self.y_train, self.y_test =
+            train_test_split(data, data[self.target], test_size=self.test_size, random_state=self.random_state)
+
+            # find imputation parameters
+            self.find_imputation_replacement()
+
+            # imput missing values
+            # numerical
+            self.X_train[self.numerical_to_imput] = 
+            self.X_train[self.numerical_to_imput].fillna(self.imputing_dict[self.numerical_to_imput])
+
+            self.X_test[self.numerical_to_imput] = 
+            self.X_test[self.numerical_to_imput].fillna(self.imputing_dict[self.numerical_to_imput])
+            
+            # categorical
+            self.X_train[self.categorical_to_imput] = 
+            self.X_train[self.categorical_to_imput].fillna('Missing')
+
+            self.X_test[self.categorical_to_imput] = 
+            self.X_test[self.categorical_to_imput].fillna('Missing')
+
+            # transform numerical variable
+            self.X_train[self.numerical_log] = np.log1p(self.X_train[self.numerical_log])
+            self.X_test[self.numerical_log] = np.log1p(self.X_test[self.numerical_log])
+
+            # find frequent labels
+            self.find_frequent_categories()                    
+
+            # remove rare labels
+            self.X_train = self.remove_rare_labels(self.X_train)
+            self.X_test = self.remove_rare_labels(self.X_test)
+
+            # find categorical mapping
+            self.find_categorical_mappings()
+
+
+            # encode categorical variables                
+            self.X_train = self.encode_categorical_variables(self.X_train)    
+            self.x_test = self.encode_categorical_variables(self.x_test)    
+
+            #  train scaler
+            self.scaler.fit(self.X_train[self.features])
+
+
+            # scale variables
+            self.X_train = self.scaler.transform(self.X_train[self.features])
+            self.X_test = self.scaler.transform(self.X_test[self.features])
+            print(self.X_train.shape, self.X_test)
+
+            # train model
+            self.model.fit(self.X_train, self.y_train)
+
+            return self
 
 
 
@@ -72,16 +144,6 @@ class Pipeline:
 
 
              
-
-
-
-
-
-
-
-
-
-
 
 
 
