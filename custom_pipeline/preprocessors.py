@@ -36,6 +36,25 @@ class Pipeline:
         self.test_size = test_size
         self.random_state = random_state
         self.percentage = percentage
+
+
+        # functions to learn parameters from train set 
+
+        def find_imputation_replacement(self):
+            for variable in self.numerical_to_imput:
+                replacement = self.X_train[variable].median()
+                self.imputing_dict[variable] = replacement
+            return self 
+
+
+        def find_frequent_categories(self):
+            for variable in self.categorical_encode:
+                tmp = self.X_train.groupby(variable)[self.target].count() /len(self.X_train)
+                self.frequent_category_dict[variable] = tmp[tmp > self.percentage].index
+            return self 
+
+
+
         
 
 
@@ -50,6 +69,47 @@ class Pipeline:
 
 
 
+
+
+             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                 
 
 
 
