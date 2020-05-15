@@ -1,4 +1,4 @@
-ML Pipeline From Scratch
+## ML Pipeline From Scratch
 
 This is an all level friendly repo showing how machine learning pipeline can be built from scratch adopting either the procedural programming approach or custom pipeline code or third-party code. All three pipelines are built with the Titanic data set from Kaggle in mind https://www.kaggle.com/c/titanic/data.
 
@@ -6,7 +6,8 @@ It is meant to show you how codes from the research environment 'Jupyter Noteboo
 
 If you have any questions or suggestions for how I can make this better, tweet me at @olugbamiezekiel.
 
-Getting Started
+### Getting Started
+
 Ensure you have Anaconda installed -
 Clone this repository
 
