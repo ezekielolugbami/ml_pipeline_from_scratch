@@ -2,8 +2,8 @@ path_to_dataset = '../titanic.csv'
 
 target = 'Survived'
 
-categorical_to_imput = ['Cabin', 'Embarked']
-numerical_to_imput = ['Age']
+categorical_to_impute = ['Cabin', 'Embarked']
+numerical_to_impute = ['Age']
 
 # variables to transform
 numerical_log = ['Age', 'Fare']
