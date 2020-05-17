@@ -1,12 +1,12 @@
 import pandas as pd 
 import numpy as np 
 
-from preprocessors import pipeline
+from preprocessors import Pipeline
 import config
 
 pipeline = Pipeline(target = config.target,
-    numerical_to_imput = config.numerical_to_imput,
-    categorical_to_imput = config.categorical_to_imput,
+    numerical_to_impute = config.numerical_to_impute,
+    categorical_to_impute = config.categorical_to_impute,
     numerical_log = config.numerical_log,
     categorical_encode = config.categorical_encode,
     features = config.features
