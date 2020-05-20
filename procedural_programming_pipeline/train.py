@@ -1,55 +1,59 @@
-import numpy as np 
-
-import preprocessing_functions as pf 
+import preprocessing_functions as pf
 import config
 
-import warnings
-warnings.simplefilter(action='ignore')
-
 # ================================================
-# training the model
+# TRAINING STEP - IMPORTANT TO PERPETUATE THE MODEL
 
-# load data
-data = pf.load_data(config.path_to_dataset)
+# Load data
+data = pf.load_data(config.PATH_TO_DATASET)
 
-# split the data
-X_train, X_test, y_train, y_test = pf.split_train_test(data, config.target)
+# divide data set
+X_train, X_test, y_train, y_test = pf.divide_train_test(data, config.TARGET)
 
-# imput numerical variable
-X_train[config.numerical_to_imput] = pf.impute_na(X_train, 
-config.numerical_to_imput, replacement=config.median_age)
+# get first letter from cabin variable
+X_train['cabin'] = pf.extract_cabin_letter(X_train, 'cabin')
 
-
-# imput categorical variables
-for var in config.categorical_to_imput:
+# impute categorical variables
+for var in config.CATEGORICAL_VARS:
     X_train[var] = pf.impute_na(X_train, var, replacement='Missing')
 
+# impute numerical variable
+for var in config.NUMERICAL_TO_IMPUTE:
+    
+    # add missing indicator first
+    X_train[var + '_NA'] = pf.add_missing_indicator(X_train, var)
+    
+    # impute NA
+    X_train[var] = pf.impute_na(X_train, var, 
+           replacement = config.IMPUTATION_DICT[var])
 
-# log transform numerical variables
-for var in config.numerical_log:
-    X_train[var] = pf.log_transform(X_train, var)
 
-
-# remove rare labels from categorical variables
-for var in config.categorical_encode:
-    X_train[var] = pf.remove_rare_labels(X_train, 
-    var, config.frequent_labels[var])
+# Group rare labels
+for var in config.CATEGORICAL_VARS:
+    X_train[var] = pf.remove_rare_labels(X_train, var,
+           config.FREQUENT_LABELS[var])
 
 
 # encode categorical variables
-for var in config.categorical_encode:
-    X_train[var] = pf.encode_categorical(X_train, 
-    var, config.encoding_mappings[var])
+for var in config.CATEGORICAL_VARS:
+    X_train = pf.encode_categorical(X_train, var)
+
+
+# check all dummies were added
+X_train = pf.check_dummy_variables(X_train, config.DUMMY_VARIABLES)
 
 
 # train scaler and save
-scaler = pf.train_scaler(X_train[config.features], 
-config.output_scaler_path)
+scaler = pf.train_scaler(X_train,
+                         config.OUTPUT_SCALER_PATH)
 
 # scale train set
-X_train = scaler.transform(X_train[config.features])
+X_train = scaler.transform(X_train)
 
-# train and save model
-pf.train_model(X_train, y_train, config.output_model_path)
+# train model and save
+pf.train_model(X_train,
+               y_train,
+               config.OUTPUT_MODEL_PATH)
+
 
 print('Finished training')
