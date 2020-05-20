@@ -6,9 +6,9 @@ import config
 
 def make_prediction(input_data):
     
-    _survive_price = joblib.load(filename=config.pipeline_name)
+    _titanic_pipe = joblib.load(filename=config.PIPELINE_NAME)
     
-    results = _survive_price.predict(input_data)
+    results = _titanic_pipe.predict(input_data)
 
     return results
    
@@ -17,25 +17,19 @@ if __name__ == '__main__':
     # test pipeline
     import numpy as np
     from sklearn.model_selection import train_test_split
-    from sklearn.metrics import mean_squared_error, f1_score, roc_auc_score, precision_score
+    from sklearn.metrics import accuracy_score
 
-    data = pd.read_csv(config.training_data_file)
+    data = pd.read_csv(config.TRAINING_DATA_FILE)
 
     X_train, X_test, y_train, y_test = train_test_split(
-        data[config.features],
-        data[config.target],
-        test_size=0.1,
-        random_state=0)
+        data.drop(config.TARGET, axis=1),
+        data[config.TARGET],
+        test_size=0.2,
+        random_state=0)  # we are setting the seed here
     
     pred = make_prediction(X_test)
     
-    # determine mse and rmse
-    print('test mse: {}'.format(mean_squared_error(self.y_test, pred)))
-    print('test rmse: {}'.format(np.sqrt(mean_squared_error(self.y_test, pred))))
-    print('test f1_score: {}'.format(f1_score(self.y_test, pred)))
-    print('test roc_auc_score: {}'.format(roc_auc_score(self.y_test, pred)))
-    print('test precision_score: {}'.format(precision_score(self.y_test, pred)))
+    # determine the accuracy
+    print('test accuracy: {}'.format(accuracy_score(y_test, pred)))
     print()
-    
-  
-    
+

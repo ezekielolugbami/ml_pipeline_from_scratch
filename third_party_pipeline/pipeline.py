@@ -1,36 +1,35 @@
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
 
 import preprocessors as pp
 import config
 
 
-survive_pipe = Pipeline(
+titanic_pipe = Pipeline(
     [
-    
-        
-        ('numerical_inputer',
-            pp.NumericalImputer(variables=config.numerical_vars_with_na)),
-        
         ('categorical_imputer',
-            pp.CategoricalImputer(variables=config.categorical_vars_with_na)),
+         pp.CategoricalImputer(variables=config.CATEGORICAL_VARS)),
+
+        ('missing indicator',
+            pp.MissingIndicator(variables=config.NUMERICAL_VARS)),
+
+        ('numerical_inputer',
+            pp.NumericalImputer(variables=config.NUMERICAL_VARS)),
          
-         ('log_transformer',
-            pp.LogTransformer(variables=config.numerical_log_vars)),
+        ('cabin_variable',
+            pp.ExtractFirstLetter(
+                variables=config.CABIN)),
          
         ('rare_label_encoder',
             pp.RareLabelCategoricalEncoder(
-                tol=0.005,
-                variables=config.categorical_vars)),
+                tol=0.05,
+                variables=config.CATEGORICAL_VARS)),
          
         ('categorical_encoder',
-            pp.CategoricalEncoder(variables=config.categorical_vars)),
+            pp.CategoricalEncoder(variables=config.CATEGORICAL_VARS)),
          
-        ('drop_features',
-            pp.DropUnecessaryFeatures(variables_to_drop=config.drop_features)),
-         
-        ('scaler', MinMaxScaler()),
-        ('Linear_model', LogisticRegression(random_state=0))
+        ('scaler', StandardScaler()),
+        ('Linear_model', LogisticRegression(C=0.0005, random_state=0))
     ]
 )
