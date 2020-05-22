@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 
-
+# function to get the first cabin of the duplicate
 def get_first_cabin(row):
     try:
         return row.split()[0]
@@ -11,7 +11,7 @@ def get_first_cabin(row):
         return np.nan
     
 
-
+# function to get passenger title
 def get_title(passenger):
     line = passenger
     if re.search('Mrs', line):
