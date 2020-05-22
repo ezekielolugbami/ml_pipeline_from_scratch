@@ -1,5 +1,5 @@
 # ML Pipeline From Scratch
-> This is an all level friendly repo showing how machine learning pipeline can be built from scratch adopting either the procedural programming approach or custom pipeline code or third-party code leveraging on the sckit-learn library. All three pipelines are built with the Titanic data set from Kaggle in mind https://www.kaggle.com/c/titanic/data.
+This is an all level friendly repo showing how machine learning pipeline can be built from scratch adopting either the procedural programming approach or custom pipeline code or third-party code leveraging on the sckit-learn library. All three pipelines are built with the Titanic data set from Kaggle in mind https://www.kaggle.com/c/titanic/data.
 
 It is meant to show you how codes from the research environment 'Jupyter Notebook' are gradually been transformed into reusable pipelines while ensuring reproducibility and modularity in mind. I have also organised the code in a way that is easy for you to edit if you want to make changes to any of the file.
 
@@ -8,9 +8,9 @@ It is meant to show you how codes from the research environment 'Jupyter Noteboo
 
 
 ```sh
-pip install pandas==
-pip install numpy==
-pip install Scikit-Learn==
+pip install pandas==1.18.1
+pip install numpy==0.25.3
+pip install Scikit-Learn==0.22.1
 ```
 
 ## Meta
