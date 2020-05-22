@@ -8,9 +8,9 @@ It is meant to show you how codes from the research environment 'Jupyter Noteboo
 
 
 ```sh
-pip install pandas==1.18.1
-pip install numpy==0.25.3
-pip install Scikit-Learn==0.22.1
+pip install pandas==1.18.2
+pip install numpy==0.25.4
+pip install Scikit-Learn==0.22.2
 ```
 
 ## Meta
