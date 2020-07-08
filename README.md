@@ -13,9 +13,9 @@ pip install numpy==0.25.3
 pip install Scikit-Learn==0.22.1
 ```
 
-## Meta
+## Contact
 
-Ezekiel Olugbami – [@OlugbamiEzekiel](https://twitter.com/OlugbamiEzekiel) – ezekiel.olugbami@gmail.com
+[@OlugbamiEzekiel](https://twitter.com/OlugbamiEzekiel) – ezekiel.olugbami@gmail.com
 
 [https://github.com/ezekielolugbami](https://github.com/ezekielolugbami)
 
